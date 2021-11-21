@@ -9,6 +9,8 @@ export const location = writable({
 
 export const data = writable<WeatherResponseType>();
 
+export const useFahrenheit = writable(false);
+
 location.subscribe(async (newState) => {
   localStorage.setItem("latitude", String(newState.latitude));
   localStorage.setItem("longitude", String(newState.longitude));

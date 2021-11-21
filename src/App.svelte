@@ -1,5 +1,6 @@
 <script lang="ts">
   import Dashboard from "./components/Dashboard.svelte";
+  import Loading from "./components/Loading.svelte";
 
   import { data } from "./store";
 
@@ -9,31 +10,29 @@
 </script>
 
 {#if loading}
-  <div
-    style="display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh;"
-  >
-    <h1>Loading</h1>
-  </div>
+  <Loading />
 {:else}
   <Dashboard />
 {/if}
 
-<style>
-  :global(body) {
-    background: #e6e5e5;
+<style global>
+  body {
+    background: #fff;
+    overflow-x: hidden;
   }
 
-  :global(*) {
+  * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  :global([data-tooltips]) {
+  [data-tooltips] {
     position: relative;
   }
 
-  :global([data-tooltips]::after) {
+  [data-tooltips]::after {
     content: attr(data-tooltips);
     position: absolute;
     top: calc(100% + 5px);
@@ -43,7 +42,8 @@
     color: #fff;
     white-space: nowrap;
     width: max-content;
-    padding: 2px 5px;
+    padding: 5px 7px;
+    font-size: 15px;
     border-radius: 5px;
     z-index: 100;
     pointer-events: none;
@@ -52,7 +52,7 @@
     visibility: hidden;
     transition: 0.3s;
   }
-  :global([data-tooltips]:hover::after) {
+  [data-tooltips]:hover::after {
     top: calc(100% + 10px);
     opacity: 1;
     visibility: visible;

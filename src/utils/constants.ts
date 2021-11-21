@@ -30,3 +30,5 @@ export const animations = [
     image: "/image/cloud.jpg",
   },
 ];
+
+export const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

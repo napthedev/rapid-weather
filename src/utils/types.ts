@@ -3,6 +3,7 @@ export interface WeatherResponseType {
   lat: number;
   lon: number;
   current: {
+    dt: number;
     sunrise: number;
     sunset: number;
     temp: number;
@@ -35,6 +36,7 @@ export interface WeatherResponseType {
     ];
   }[];
   daily: {
+    dt: number;
     temp: {
       min: number;
       max: number;
