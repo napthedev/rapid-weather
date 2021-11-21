@@ -1,5 +1,6 @@
 <script lang="ts">
   import UV from "./UV.svelte";
+  import Wind from "./Wind.svelte";
 
   import { data } from "../../store";
 </script>
@@ -8,7 +9,10 @@
   <div class="item">
     <UV value={$data.current.uvi} />
   </div>
-  <div class="item" />
+  <div class="item">
+    <Wind speed={$data.current.wind_speed} direction={$data.current.wind_deg} />
+  </div>
+
   <div class="item" />
   <div class="item" />
   <div class="item" />
