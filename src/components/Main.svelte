@@ -70,6 +70,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
+    position: relative;
   }
 
   .head span:hover {
@@ -82,13 +83,13 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
     height: 2px;
     transition: 0.2s;
     background: transparent;
   }
 
   .selected-section {
-    position: relative;
     color: #000 !important;
   }
 
