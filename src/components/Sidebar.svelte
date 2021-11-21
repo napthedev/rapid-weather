@@ -1,24 +1,40 @@
 <script>
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
   import Button from "./Button.svelte";
+  import { location, data } from "../store";
+  import { animations } from "../utils/constants";
 
-  export let animation;
-  export let temperature;
-  export let title;
-  export let description;
-  export let icon;
-  export let image;
-  export let name;
+  let animation = animations.find((animation) =>
+    String($data?.current.weather[0].id).startsWith(animation.id)
+  )?.url;
+  let temperature = Math.round($data?.current.temp);
+  let title = $data?.current.weather[0].main;
+  let description = $data?.current.weather[0].description;
+  let icon = `http://openweathermap.org/img/wn/${$data?.current.weather[0].icon}@2x.png`;
+  let image = animations.find((animation) =>
+    String($data?.current.weather[0].id).startsWith(animation.id)
+  )?.image;
+  let name = $data?.name;
+
+  const useCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        location.set({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  };
 </script>
 
 <div class="container">
   <div class="actions">
     <p class="name">{name}</p>
     <div style="display: flex; align-items: center; gap: 5px">
-      <Button
+      <Button on:click={useCurrentLocation} data-tooltips="Current location"
         ><i style="font-size: 25px;" class="bx bx-current-location" /></Button
       >
-      <Button><i style="font-size: 25px;" class="bx bx-reset" /></Button>
     </div>
   </div>
   <div class="animation-container">
@@ -51,6 +67,7 @@
     justify-content: space-between;
     width: 300px;
     padding: 30px 50px;
+    flex-shrink: 0;
   }
 
   .name {
