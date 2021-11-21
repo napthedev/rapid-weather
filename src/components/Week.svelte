@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
   import { data } from "../store";
   import { days, animations } from "../utils/constants";
   import DayCard from "./DayCard.svelte";
 </script>
 
-<div class="container">
+<div transition:fade={{ duration: 200 }} class="container">
   {#each $data.daily as day}
     <DayCard
       day={days[new Date(day.dt * 1000).getDay()]}

@@ -21,7 +21,7 @@ export const getWeatherData = async (
   return { ...data, name: geoLocation };
 };
 
-export const getLocationName = async (latitude: number, longitude: number) => {
+const getLocationName = async (latitude: number, longitude: number) => {
   const data = (
     await axios.get("http://api.openweathermap.org/geo/1.0/reverse", {
       params: {

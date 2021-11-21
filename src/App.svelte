@@ -3,16 +3,12 @@
   import Loading from "./components/Loading.svelte";
 
   import { data } from "./store";
-
-  let loading = true;
-
-  $: $data && (loading = false);
 </script>
 
-{#if loading}
-  <Loading />
-{:else}
+{#if $data && typeof $data !== "undefined"}
   <Dashboard />
+{:else}
+  <Loading />
 {/if}
 
 <style global>
