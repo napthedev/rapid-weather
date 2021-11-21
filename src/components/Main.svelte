@@ -2,6 +2,7 @@
   import Button from "./Button.svelte";
   import { useFahrenheit } from "../store";
   import Week from "./Week.svelte";
+  import Today from "./Today/index.svelte";
 
   enum Section {
     today,
@@ -43,6 +44,7 @@
   {#if section === Section.week}
     <Week />
   {/if}
+  <Today />
 </main>
 
 <style>
