@@ -1,11 +1,14 @@
 <script lang="ts">
   import Dashboard from "./components/Dashboard.svelte";
+  import Error from "./components/Error.svelte";
   import Loading from "./components/Loading.svelte";
 
-  import { data } from "./store";
+  import { data, isError } from "./store";
 </script>
 
-{#if $data && typeof $data !== "undefined"}
+{#if $isError}
+  <Error />
+{:else if $data && typeof $data !== "undefined"}
   <Dashboard />
 {:else}
   <Loading />

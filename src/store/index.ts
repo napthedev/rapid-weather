@@ -19,10 +19,24 @@ export const useFahrenheit = writable(
   Boolean(localStorage.getItem("useFahrenheit"))
 );
 
+export const isError = writable(false);
+
 location.subscribe(async (newLocation) => {
   localStorage.setItem("latitude", String(newLocation.latitude));
   localStorage.setItem("longitude", String(newLocation.longitude));
-  data.set(await getWeatherData(newLocation.latitude, newLocation.longitude));
+
+  try {
+    const weatherData = await getWeatherData(
+      newLocation.latitude,
+      newLocation.longitude
+    );
+
+    data.set(weatherData);
+  } catch (error) {
+    console.log(error);
+
+    isError.set(true);
+  }
 });
 
 useFahrenheit.subscribe((newValue) => {
