@@ -1,26 +1,23 @@
 <script lang="ts">
   import Counter from "../Counter.svelte";
 
-  export let speed;
-  export let direction;
+  export let value;
 </script>
 
 <div class="container">
-  <p>Wind Status</p>
+  <p>Visibility</p>
   <p>
     <span style="font-size: 50px;"
-      ><Counter value={speed} changePerTime={0.3} time={1000} />
+      ><Counter {value} changePerTime={0.3} time={1000} />
     </span>
-    <span>m/s</span>
+    <span>km</span>
   </p>
 
-  <div class="direction">
-    <img
-      style={`transform: rotate(${direction}deg)`}
-      src="/today/direction.png"
-      alt=""
-    />
-    <Counter value={direction} changePerTime={0.3} time={1000} /> degrees
+  <div class="more-info">
+    <img src="/today/visibility.png" alt="" />
+    <p>
+      {value < 3 ? "Too much dust" : value < 7 ? "Normal" : "Good for eyes"}
+    </p>
   </div>
 </div>
 
@@ -33,13 +30,13 @@
     height: 100%;
   }
 
-  .direction {
+  .more-info {
     display: flex;
     align-items: center;
     gap: 6px;
   }
 
-  .direction img {
+  .more-info img {
     width: 30px;
     height: 30px;
     border: 1px solid #e7e7e7;

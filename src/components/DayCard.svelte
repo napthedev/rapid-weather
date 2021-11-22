@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { slide } from "svelte/transition";
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
+  import { celsiusToFahrenheit } from "../utils/convertDegree";
+  import { useFahrenheit } from "../store";
 
   export let day;
   export let animation;
@@ -21,10 +24,20 @@
     height={60}
     speed={2}
   />
-  <div class="temp">
-    <p class="min">{Math.round(min)}º</p>
-    <p class="max">{Math.round(max)}º</p>
-  </div>
+  {#key $useFahrenheit}
+    <div class="temp" transition:slide={{ duration: 300 }}>
+      <p class="min">
+        {$useFahrenheit
+          ? Math.round(celsiusToFahrenheit(min))
+          : Math.round(min)}º
+      </p>
+      <p class="max">
+        {$useFahrenheit
+          ? Math.round(celsiusToFahrenheit(max))
+          : Math.round(max)}º
+      </p>
+    </div>
+  {/key}
 </div>
 
 <style>

@@ -43,6 +43,9 @@ export interface WeatherResponseType {
     humidity: number;
     wind_speed: number;
     wind_deg: number;
+    sunrise: number;
+    sunset: number;
+    pressure: number;
     weather: [
       {
         id: number;

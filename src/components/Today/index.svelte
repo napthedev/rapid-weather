@@ -2,6 +2,9 @@
   import UV from "./UV.svelte";
   import Wind from "./Wind.svelte";
   import Sun from "./Sun.svelte";
+  import Humidity from "./Humidity.svelte";
+  import Visibility from "./Visibility.svelte";
+  import Pressure from "./Pressure.svelte";
 
   import { data } from "../../store";
 </script>
@@ -19,13 +22,19 @@
 
   <div class="item">
     <Sun
-      sunrise={$data.current.sunrise * 1000}
-      sunset={$data.current.sunset * 1000}
+      sunrise={$data.daily[0].sunrise * 1000}
+      sunset={$data.daily[0].sunset * 1000}
     />
   </div>
-  <div class="item" />
-  <div class="item" />
-  <div class="item" />
+  <div class="item">
+    <Humidity percentage={$data.daily[0].humidity} />
+  </div>
+  <div class="item">
+    <Visibility value={$data.current.visibility / 1000} />
+  </div>
+  <div class="item">
+    <Pressure value={$data.daily[0].pressure} />
+  </div>
 </div>
 
 <style>

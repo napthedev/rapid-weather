@@ -40,7 +40,6 @@
     padding: 5px 7px;
     font-size: 15px;
     border-radius: 5px;
-    z-index: 100;
     pointer-events: none;
 
     opacity: 0;

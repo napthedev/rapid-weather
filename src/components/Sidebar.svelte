@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { slide } from "svelte/transition";
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
   import Button from "./Button.svelte";
-  import { location, data } from "../store";
+  import { location, data, useFahrenheit } from "../store";
   import { animations, days } from "../utils/constants";
+  import { celsiusToFahrenheit } from "../utils/convertDegree";
 
   $: animation = animations.find((animation) =>
     String($data.current.weather[0].id).startsWith(animation.id)
@@ -37,7 +39,10 @@
   <div class="actions">
     <p class="name">{name || "Rapid Weather"}</p>
     <div style="display: flex; align-items: center; gap: 5px">
-      <Button on:click={useCurrentLocation} data-tooltips="Current location"
+      <Button
+        on:click={useCurrentLocation}
+        data-tooltips="Your location"
+        class="fix-tooltips"
         ><i style="font-size: 25px;" class="bx bx-current-location" /></Button
       >
     </div>
@@ -56,7 +61,15 @@
       speed={2}
     />
   </div>
-  <p class="temperature">{temperature}<sup>ºC</sup></p>
+  <div style="height: 100px;">
+    {#key $useFahrenheit}
+      <p class="temperature" transition:slide={{ duration: 300 }}>
+        {$useFahrenheit ? celsiusToFahrenheit(temperature) : temperature}<sup
+          >º{$useFahrenheit ? "F" : "C"}</sup
+        >
+      </p>
+    {/key}
+  </div>
   <p>{updatedDateText}</p>
   <div class="info">
     <img height="100" width="100" src={icon} alt="" />
@@ -95,6 +108,7 @@
 
   .temperature {
     font-size: 60px;
+    text-align: center;
   }
 
   .info {
@@ -112,5 +126,11 @@
     height: 120px;
     object-fit: cover;
     border-radius: 20px;
+  }
+
+  :global(.fix-tooltips::after) {
+    left: auto !important;
+    transform: none !important;
+    right: -20px !important;
   }
 </style>

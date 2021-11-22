@@ -5,8 +5,6 @@
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
 
-    console.log(date);
-
     const hours24 = date.getHours();
 
     const hours = hours24 > 12 ? hours24 % 12 : hours24;

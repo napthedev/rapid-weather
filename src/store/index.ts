@@ -15,10 +15,16 @@ export const location = writable({
 
 export const data = writable<WeatherResponseType>();
 
-export const useFahrenheit = writable(false);
+export const useFahrenheit = writable(
+  Boolean(localStorage.getItem("useFahrenheit"))
+);
 
 location.subscribe(async (newLocation) => {
   localStorage.setItem("latitude", String(newLocation.latitude));
   localStorage.setItem("longitude", String(newLocation.longitude));
   data.set(await getWeatherData(newLocation.latitude, newLocation.longitude));
+});
+
+useFahrenheit.subscribe((newValue) => {
+  localStorage.setItem("useFahrenheit", newValue ? "1" : "");
 });
