@@ -1,8 +1,11 @@
 <script lang="ts">
   import Button from "./Button.svelte";
   import { useFahrenheit } from "../store";
-  import Week from "./Week.svelte";
   import Today from "./Today/index.svelte";
+  import { fade } from "svelte/transition";
+  import { data } from "../store";
+  import { days, animations } from "../utils/constants";
+  import DayCard from "./DayCard.svelte";
 
   enum Section {
     today,
@@ -10,6 +13,24 @@
   }
 
   let section = Section.week;
+
+  $: itemsData =
+    section === Section.week
+      ? $data.daily
+      : (new Array(8)
+          .fill("")
+          .map((_, index) => $data.hourly[index * 3]) as any);
+
+  const formatHourly = (timestamp: number) => {
+    const date = new Date(timestamp);
+
+    const hours24 = date.getHours();
+
+    const hours = hours24 > 12 ? hours24 % 12 : hours24;
+    const amOrPm = hours24 > 12 ? "PM" : "AM";
+
+    return `${hours} ${amOrPm}`;
+  };
 </script>
 
 <main>
@@ -41,10 +62,23 @@
       >
     </div>
   </div>
-  {#if section === Section.week}
-    <Week />
-  {/if}
-  <Today />
+  <div>
+    <div transition:fade={{ duration: 200 }} class="container">
+      {#each itemsData as item}
+        <DayCard
+          time={section === Section.week
+            ? days[new Date(item.dt * 1000).getDay()]
+            : formatHourly(item.dt * 1000)}
+          min={section === Section.week ? item.temp.min : 0}
+          max={section === Section.week ? item.temp.max : item.temp}
+          animation={animations.find((animation) =>
+            String(item.weather[0].id).startsWith(animation.id)
+          ).url}
+        />
+      {/each}
+    </div>
+    <Today />
+  </div>
 </main>
 
 <style>
@@ -103,6 +137,20 @@
   @media (max-width: 768px) {
     main {
       height: auto;
+    }
+  }
+
+  .container {
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 50px;
+  }
+
+  @media (max-width: 992px) {
+    .container {
+      padding: 0 20px;
     }
   }
 </style>

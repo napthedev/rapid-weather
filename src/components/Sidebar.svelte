@@ -64,9 +64,9 @@
   <div style="height: 100px;">
     {#key $useFahrenheit}
       <p class="temperature" transition:slide={{ duration: 300 }}>
-        {$useFahrenheit ? celsiusToFahrenheit(temperature) : temperature}<sup
-          >º{$useFahrenheit ? "F" : "C"}</sup
-        >
+        {$useFahrenheit
+          ? Math.round(celsiusToFahrenheit(temperature))
+          : temperature}<sup>º{$useFahrenheit ? "F" : "C"}</sup>
       </p>
     {/key}
   </div>

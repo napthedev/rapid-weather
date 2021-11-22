@@ -24,6 +24,7 @@ export interface WeatherResponseType {
     }[];
   };
   hourly: {
+    dt: number;
     temp: number;
     weather: [
       {

@@ -4,14 +4,16 @@
   import { celsiusToFahrenheit } from "../utils/convertDegree";
   import { useFahrenheit } from "../store";
 
-  export let day;
+  export let time;
   export let animation;
   export let min;
   export let max;
 </script>
 
 <div class="card">
-  <p>{day}</p>
+  {#key time}
+    <p transition:slide={{ duration: 300 }}>{time}</p>
+  {/key}
   <LottiePlayer
     src={animation}
     autoplay
@@ -24,13 +26,15 @@
     height={60}
     speed={2}
   />
-  {#key $useFahrenheit}
+  {#key `${$useFahrenheit} ${min} ${max}`}
     <div class="temp" transition:slide={{ duration: 300 }}>
-      <p class="min">
-        {$useFahrenheit
-          ? Math.round(celsiusToFahrenheit(min))
-          : Math.round(min)}º
-      </p>
+      {#if min}
+        <p class="min">
+          {$useFahrenheit
+            ? Math.round(celsiusToFahrenheit(min))
+            : Math.round(min)}º
+        </p>
+      {/if}
       <p class="max">
         {$useFahrenheit
           ? Math.round(celsiusToFahrenheit(max))
