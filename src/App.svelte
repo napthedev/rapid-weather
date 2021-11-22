@@ -14,7 +14,7 @@
 <style global>
   body {
     background: #fff;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   * {

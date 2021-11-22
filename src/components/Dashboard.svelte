@@ -4,17 +4,15 @@
   import { fade } from "svelte/transition";
 </script>
 
-<div>
-  <main in:fade={{ delay: 400, duration: 400 }}>
-    <Sidebar />
-    <Main />
-  </main>
-</div>
+<main in:fade={{ delay: 400, duration: 400 }}>
+  <Sidebar />
+  <Main />
+</main>
 
 <style>
   main {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background: #fff;
     display: flex;
   }

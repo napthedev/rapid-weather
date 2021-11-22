@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Counter from "../Counter.svelte";
+
   export let speed;
   export let direction;
 </script>
@@ -6,7 +8,9 @@
 <div class="container">
   <p>Wind Status</p>
   <p>
-    <span style="font-size: 50px;">{speed}</span>
+    <span style="font-size: 50px;"
+      ><Counter value={speed} changePerTime={0.3} time={1000} />
+    </span>
     <span>m/s</span>
   </p>
 
@@ -16,7 +20,7 @@
       src="/today/direction.png"
       alt=""
     />
-    {direction}deg
+    <Counter value={direction} changePerTime={0.3} time={1000} />deg
   </div>
 </div>
 

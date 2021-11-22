@@ -74,9 +74,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    height: 100vh;
     width: 350px;
     padding: 30px 30px;
     flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .name {

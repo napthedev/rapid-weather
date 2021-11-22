@@ -1,5 +1,6 @@
 <script lang="ts">
-  export let value = 0;
+  import Counter from "../Counter.svelte";
+  export let value;
 </script>
 
 <div class="container">
@@ -16,9 +17,8 @@
         fill="#B8B8B8"
       />
       <path
-        style={`transform: rotate(-${Math.round(
-          (15 - value / 15) * 180
-        )}deg); transform-origin: 50% 100%; ${
+        class="progress"
+        style={`--rotation: -${Math.round(((15 - value) / 15) * 180)}deg; ${
           value === 0 ? "display: none" : ""
         }`}
         d="M254 150.5C254 117.481 240.83 85.8135 217.388 62.4652C193.946 39.1169 162.152 26 129 26C95.8479 26 64.0537 39.1169 40.6117 62.4652C17.1696 85.8135 4.00001 117.481 4 150.5H38.1242C38.1242 126.495 47.6986 103.472 64.7411 86.4981C81.7836 69.5238 104.898 59.9877 129 59.9877C153.102 59.9877 176.216 69.5238 193.259 86.4981C210.301 103.472 219.876 126.495 219.876 150.5H254Z"
@@ -48,7 +48,9 @@
     </defs>
   </svg>
 
-  <p class="value">{value}</p>
+  <p class="value">
+    <Counter {value} changePerTime={value / 100} time={1000} fixed={2} />
+  </p>
 </div>
 
 <style>
@@ -63,5 +65,21 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .progress {
+    transform-origin: 50% 100%;
+    animation: rotate 1s linear;
+    transform: rotate(var(--rotation));
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(-180deg);
+    }
+
+    to {
+      transform: rotate(var(--rotation));
+    }
   }
 </style>

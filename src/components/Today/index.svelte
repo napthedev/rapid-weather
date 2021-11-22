@@ -1,19 +1,28 @@
 <script lang="ts">
   import UV from "./UV.svelte";
   import Wind from "./Wind.svelte";
+  import Sun from "./Sun.svelte";
 
   import { data } from "../../store";
 </script>
 
 <div class="container">
   <div class="item">
-    <UV value={$data.current.uvi} />
+    <UV value={$data.daily[0].uvi} />
   </div>
   <div class="item">
-    <Wind speed={$data.current.wind_speed} direction={$data.current.wind_deg} />
+    <Wind
+      speed={$data.daily[0].wind_speed}
+      direction={$data.daily[0].wind_deg}
+    />
   </div>
 
-  <div class="item" />
+  <div class="item">
+    <Sun
+      sunrise={$data.current.sunrise * 1000}
+      sunset={$data.current.sunset * 1000}
+    />
+  </div>
   <div class="item" />
   <div class="item" />
   <div class="item" />
@@ -33,6 +42,7 @@
     overflow: hidden;
     padding: 20px;
     width: 270px;
+    height: 195px;
   }
 
   @media (max-width: 992px) {
