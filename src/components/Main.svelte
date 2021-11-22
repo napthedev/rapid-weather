@@ -12,7 +12,12 @@
     week,
   }
 
-  let section = Section.week;
+  let section = Boolean(localStorage.getItem("sectionToday"))
+    ? Section.today
+    : Section.week;
+
+  $: section !== null &&
+    localStorage.setItem("sectionToday", section === Section.today ? "1" : "");
 
   $: itemsData =
     section === Section.week
@@ -46,6 +51,15 @@
       >
     </div>
     <div>
+      <a
+        href="https://github.com/napthedev/rapid-weather.git"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Button data-tooltips="View Github" style="width: 34px; height: 34px">
+          <i style="font-size: 25px;" class="bx bxl-github" />
+        </Button>
+      </a>
       <Button
         data-tooltips="Celsius"
         on:click={() => useFahrenheit.set(false)}

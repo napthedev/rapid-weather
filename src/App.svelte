@@ -23,6 +23,10 @@
     box-sizing: border-box;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   [data-tooltips] {
     position: relative;
   }
