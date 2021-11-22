@@ -159,12 +159,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 0 50px;
-  }
-
-  @media (max-width: 992px) {
-    .container {
-      padding: 0 20px;
-    }
+    padding: 0 20px;
   }
 </style>
