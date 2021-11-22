@@ -99,4 +99,10 @@
   .selected-section::after {
     background: #000 !important;
   }
+
+  @media (max-width: 768px) {
+    main {
+      height: auto;
+    }
+  }
 </style>

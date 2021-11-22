@@ -51,4 +51,10 @@
     opacity: 1;
     visibility: visible;
   }
+
+  @media (max-width: 768px) {
+    body {
+      overflow-y: auto;
+    }
+  }
 </style>

@@ -16,4 +16,10 @@
     background: #fff;
     display: flex;
   }
+
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+  }
 </style>

@@ -133,4 +133,11 @@
     transform: none !important;
     right: -20px !important;
   }
+
+  @media (max-width: 768px) {
+    .container {
+      width: 100%;
+      height: auto;
+    }
+  }
 </style>
